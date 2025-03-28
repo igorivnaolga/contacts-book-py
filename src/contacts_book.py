@@ -1,20 +1,26 @@
 from collections import UserDict
 import pickle
 import os
+from src.record import ContactRecord
+from src.utils.storage import Storage
+from datetime import datetime, timedelta
 
 
 class ContactsBook(UserDict): 
     # """Class for storing and managing contacts"""
     
-    def __init__(self, file_path="contacts_book.pickle"):
+    def __init__(self):
         super().__init__()
-        self.file_path = file_path
-        self.load_from_file()
+        self.storage = Storage("contacts_book.pickle")
+         # Load data from storage if available
+        data = self.storage.load()
+        if data:
+             self.data = data
 
 
     def add_record(self, record):
         self.data[record.name.value] = record
-        self.save_to_file()
+        self.save()
         return True
 
 
@@ -25,15 +31,15 @@ class ContactsBook(UserDict):
     def delete(self, name):
         if name in self.data:
             del self.data[name]
-            self.save_to_file()
+            self.save()
             return True
         return False
     
 
     def search(self, query):
-        # """Search contacts by any field"""
-        results = []
+        # """Search contacts by name, phone, email, or address"""
         query = query.lower()
+        results = []
 
         for record in self.data.values():
             # Search in name
@@ -42,34 +48,31 @@ class ContactsBook(UserDict):
                 continue
 
             # Search in phones
-            if any(query in phone.value.lower() for phone in record.phones):
-                results.append(record)
-                continue
-
-            # Search in email
-            if record.email and query in record.email.value.lower():
-                results.append(record)
-                continue
-
-            # Search in address
-            if record.address and query in record.address.value.lower():
-                results.append(record)
-                continue
-
-            # Search in birthday
-            if record.birthday and query in record.birthday.value.lower():
-                results.append(record)
-                continue
-
+            for phone in record.phones:
+                if query in phone.value:
+                     results.append(record)
+                     break
+            else:
+                 # Search in emails
+                for email in record.emails:
+                    if query in email.value.lower():
+                         results.append(record)
+                         break
+                else:
+                     # Search in address
+                    if record.address and query in record.address.value.lower():
+                         results.append(record)
+         
         return results
     
 
-    def get_upcoming_birthdays(self, days=7):
-        # """Get contacts with birthdays in the next specified days"""
+    def get_birthdays(self, days=7):
+         #"""Get contacts with birthdays in the next N days"""
+        today = datetime.now().date()
         upcoming_birthdays = []
 
         for record in self.data.values():
-            if record.birthday and record.birthday.date:
+            if record.birthday:
                 days_to_birthday = record.days_to_birthday()
                 if days_to_birthday is not None and days_to_birthday <= days:
                     upcoming_birthdays.append((record, days_to_birthday))
@@ -79,26 +82,21 @@ class ContactsBook(UserDict):
         return upcoming_birthdays
     
 
-    def save_to_file(self):
-        #"""Save contacts book to file"""
-        with open(self.file_path, 'wb') as file:
-            pickle.dump(self.data, file)
-
-
-    def load_from_file(self):
-        #"""Load contacts book from file"""
-        if os.path.exists(self.file_path):
-            try:
-                with open(self.file_path, 'rb') as file:
-                    self.data = pickle.load(file)
-            except (pickle.UnpicklingError, EOFError):
-                # If file is corrupted, start with empty contacts book
-                self.data = {}
+    def save(self):
+        #"""Save contacts book to storage"""
+         return self.storage.save(self.data)
 
 
     def __str__(self):
-        return "\n".join(str(record) for record in self.data.values())
-    
+        if not self.data:
+             return "Contacts book is empty"
+         
+        result = ["Contacts Book:"]
+        for record in self.data.values():
+             result.append(str(record))
+             result.append("-" * 30)
+         
+        return "\n".join(result)
 
 
     
