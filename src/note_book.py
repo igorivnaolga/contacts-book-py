@@ -1,6 +1,8 @@
 from collections import UserDict
 from src.utils.storage import Storage
- 
+from src.utils.color_formatter import ColorFormatter
+
+
 class NoteBook(UserDict):
      """Class for storing and managing notes"""
      def __init__(self):
@@ -95,11 +97,11 @@ class NoteBook(UserDict):
      
      def __str__(self):
          if not self.data:
-             return "Note book is empty"
+             return ColorFormatter.warning("Note book is empty")
          
-         result = ["Note Book:"]
+         result = [ColorFormatter.bold("Note Book:")]
          for record in self.data.values():
              result.append(str(record))
-             result.append("-" * 30)
+             result.append(ColorFormatter.info("-" * 30))
          
          return "\n".join(result)
