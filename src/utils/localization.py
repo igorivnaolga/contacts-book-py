@@ -1,5 +1,5 @@
 from src.utils.storage import Storage
- 
+
 class Localization:
     """
     Class for handling multilingual support.
@@ -13,19 +13,19 @@ class Localization:
             "en": "English",
             "uk": "Українська"
         }
-         
+        
         # Default language
         self.current_language = "en"
-         
+        
         # Load saved language preference
         self.storage = Storage("language_settings.pickle")
         saved_language = self.storage.load()
         if saved_language and saved_language in self.languages:
             self.current_language = saved_language
-         
+        
         # Initialize translations
         self._init_translations()
-     
+    
     def _init_translations(self):
         """
         Initialize translations for all supported languages.
@@ -48,7 +48,9 @@ class Localization:
                 "help": "help",
                 "exit": "exit",
                 "change language": "change language",
-                 
+                "show all": "show all",
+                "show all notes": "show all notes",
+                
                 # Command descriptions
                 "desc_add_contact": "Add a new contact",
                 "desc_search_contacts": "Search contacts",
@@ -65,10 +67,12 @@ class Localization:
                 "desc_help": "Show available commands",
                 "desc_exit": "Exit the program",
                 "desc_change_language": "Change interface language",
-                 
+                "desc_show_all": "Show all contacts",
+                "desc_show_all_notes": "Show all notes",
+                
                 # UI strings
                 "welcome": "Welcome to Personal Assistant!",
-                "enter_command": "Enter a command: ",
+                "enter_command": "Enter a command",
                 "exiting": "Exiting...",
                 "error": "Error: {}",
                 "command_not_recognized": "Command not recognized. Type 'help' to see available commands.",
@@ -86,23 +90,23 @@ class Localization:
                 "search_criteria": "Search by:\n1. Name\n2. Phone\n3. Email\n4. Address\nEnter number: ",
                 "tag_search_criteria": "Search by:\n1. Tag name\n2. Note content\nEnter number: ",
                 "sort_criteria": "Sort by:\n1. Name\n2. Date\n3. Tags\nEnter number: ",
-                 
+                
                 # Contact management
                 "contact_added": "Contact added successfully.",
                 "contact_deleted": "Contact deleted successfully.",
                 "contact_updated": "Contact updated successfully.",
                 "contact_not_found": "Contact not found.",
-                "enter_name": "Enter name: ",
-                "enter_phone": "Enter phone number: ",
-                "enter_email": "Enter email: ",
-                "enter_birthday": "Enter birthday (YYYY-MM-DD): ",
-                "enter_address": "Enter address: ",
+                "enter_name": "Enter name",
+                "enter_phone": "Enter phone number",
+                "enter_email": "Enter email",
+                "enter_birthday": "Enter birthday (YYYY-MM-DD)",
+                "enter_address": "Enter address",
                 "invalid_phone": "Invalid phone number format.",
                 "invalid_email": "Invalid email format.",
                 "invalid_date": "Invalid date format.",
                 "upcoming_birthdays": "Upcoming birthdays in the next {days} days:",
                 "no_birthdays": "No upcoming birthdays.",
-                 
+                
                 # Note management
                 "note_added": "Note added successfully.",
                 "note_deleted": "Note deleted successfully.",
@@ -114,7 +118,7 @@ class Localization:
                 "tag_added": "Tag added successfully.",
                 "no_notes_found": "No notes found.",
                 "notes_by_tag": "Notes by tag:",
-                "no_tags": "Notes without tags:"
+                "no_tags": "Notes without tags:",
             },
             "uk": {
                 # Command names
@@ -133,36 +137,9 @@ class Localization:
                 "help": "допомога",
                 "exit": "вихід",
                 "change language": "змінити мову",
-                 
-                # Contact management messages
-                "contact_added": "Контакт успішно додано.",
-                "contact_deleted": "Контакт успішно видалено.",
-                "contact_updated": "Контакт успішно оновлено.",
-                "contact_not_found": "Контакт не знайдено.",
-                "enter_name": "Введіть ім'я: ",
-                "enter_phone": "Введіть номер телефону: ",
-                "enter_email": "Введіть email: ",
-                "enter_birthday": "Введіть дату народження (РРРР-ММ-ДД): ",
-                "enter_address": "Введіть адресу: ",
-                "invalid_phone": "Неправильний формат номера телефону.",
-                "invalid_email": "Неправильний формат email.",
-                "invalid_date": "Неправильний формат дати.",
-                "upcoming_birthdays": "Найближчі дні народження протягом {days} днів:",
-                "no_birthdays": "Немає найближчих днів народження.",
-                 
-                # Note management messages
-                "note_added": "Нотатку успішно додано.",
-                "note_deleted": "Нотатку успішно видалено.",
-                "note_updated": "Нотатку успішно оновлено.",
-                "note_not_found": "Нотатку не знайдено.",
-                "enter_note_name": "Введіть назву нотатки: ",
-                "enter_note_content": "Введіть вміст нотатки: ",
-                "enter_tag": "Введіть тег: ",
-                "tag_added": "Тег успішно додано.",
-                "no_notes_found": "Нотаток не знайдено.",
-                "notes_by_tag": "Нотатки за тегом:",
-                "no_tags": "Нотатки без тегів:",
-                 
+                "show all": "показати все",
+                "show all notes": "показати всі нотатки",
+                
                 # Command descriptions
                 "desc_add_contact": "Додати новий контакт",
                 "desc_search_contacts": "Пошук контактів",
@@ -179,11 +156,12 @@ class Localization:
                 "desc_help": "Показати доступні команди",
                 "desc_exit": "Вийти з програми",
                 "desc_change_language": "Змінити мову інтерфейсу",
-                 
-
+                "desc_show_all": "Показати всі контакти",
+                "desc_show_all_notes": "Показати всі нотатки",
+                
                 # UI strings
                 "welcome": "Ласкаво просимо до Персонального Помічника!",
-                "enter_command": "Введіть команду: ",
+                "enter_command": "Введіть команду",
                 "exiting": "Виходимо...",
                 "error": "Помилка: {}",
                 "command_not_recognized": "Команда не розпізнана. Введіть 'допомога' для перегляду доступних команд.",
@@ -201,15 +179,38 @@ class Localization:
                 "search_criteria": "Пошук за:\n1. Ім'я\n2. Телефон\n3. Email\n4. Адреса\nВведіть номер: ",
                 "tag_search_criteria": "Пошук за:\n1. Назва тегу\n2. Вміст нотатки\nВведіть номер: ",
                 "sort_criteria": "Сортувати за:\n1. Ім'я\n2. Дата\n3. Теги\nВведіть номер: ",
-                "search_criteria": "Пошук за:\n1. Ім'я\n2. Телефон\n3. Email\n4. Адреса\nВведіть номер: ",
-                "tag_search_criteria": "Пошук за:\n1. Назва тегу\n2. Вміст нотатки\nВведіть номер: ",
-                "sort_criteria": "Сортувати за:\n1. Ім'я\n2. Дата\n3. Теги\nВведіть номер: ",
-                "search_criteria": "Шукати за:\n1. Ім'ям\n2. Телефоном\n3. Email\n4. Адресою\nВведіть номер: ",
-                "tag_search_criteria": "Шукати за:\n1. Назвою тегу\n2. Вмістом нотатки\nВведіть номер: ",
-                "sort_criteria": "Сортувати за:\n1. Ім'ям\n2. Датою\n3. Тегами\nВведіть номер: "
+                
+                # Contact management messages
+                "contact_added": "Контакт успішно додано.",
+                "contact_deleted": "Контакт успішно видалено.",
+                "contact_updated": "Контакт успішно оновлено.",
+                "contact_not_found": "Контакт не знайдено.",
+                "enter_name": "Введіть ім'я",
+                "enter_phone": "Введіть номер телефону",
+                "enter_email": "Введіть email",
+                "enter_birthday": "Введіть дату народження (РРРР-ММ-ДД): ",
+                "enter_address": "Введіть адресу",
+                "invalid_phone": "Неправильний формат номера телефону.",
+                "invalid_email": "Неправильний формат email.",
+                "invalid_date": "Неправильний формат дати.",
+                "upcoming_birthdays": "Найближчі дні народження протягом {days} днів:",
+                "no_birthdays": "Немає найближчих днів народження.",
+                
+                # Note management messages
+                "note_added": "Нотатку успішно додано.",
+                "note_deleted": "Нотатку успішно видалено.",
+                "note_updated": "Нотатку успішно оновлено.",
+                "note_not_found": "Нотатку не знайдено.",
+                "enter_note_name": "Введіть назву нотатки: ",
+                "enter_note_content": "Введіть вміст нотатки: ",
+                "enter_tag": "Введіть тег: ",
+                "tag_added": "Тег успішно додано.",
+                "no_notes_found": "Нотаток не знайдено.",
+                "notes_by_tag": "Нотатки за тегом:",
+                "no_tags": "Нотатки без тегів:",
             }
         }
-     
+    
     def get_text(self, key):
         """
         Get translated text for a key in the current language.
@@ -217,7 +218,7 @@ class Localization:
         if key in self.translations[self.current_language]:
             return self.translations[self.current_language][key]
         return key
-     
+    
     def get_command_dict(self):
         """
         Get a dictionary of commands and their descriptions in the current language.
@@ -226,18 +227,18 @@ class Localization:
         commands = {}
         # Get all command keys (excluding descriptions and internal keys)
         command_keys = [key for key in self.translations["en"].keys() 
-                    if not key.startswith("desc_") and not key.startswith("_")]
-         
+                       if not key.startswith("desc_") and not key.startswith("_")]
+        
         # Sort commands to prioritize common command prefixes (like 'add', 'search', etc)
         command_keys.sort(key=lambda x: (x.split()[0] if ' ' in x else x, len(x)))
-         
+        
         for cmd in command_keys:
             translated_cmd = self.get_text(cmd)
             desc_key = f"desc_{cmd}"
             if desc_key in self.translations[self.current_language]:
                 commands[translated_cmd] = self.translations[self.current_language][desc_key]
         return commands
-     
+    
     def get_original_command(self, translated_command):
         """
         Get the original (English) command name from a translated command.
@@ -248,14 +249,31 @@ class Localization:
                 # Return the same key from the English translations
                 return key
         return translated_command
-     
+    
+    def get_available_languages(self):
+        """
+        Return dictionary of available languages
+        """
+        return self.languages
+    
+    def set_language(self, language_code):
+        """
+        Set language directly by language code
+        """
+        if language_code in self.languages:
+            self.current_language = language_code
+            # Save language preference
+            self.storage.save(self.current_language)
+            return True
+        return False
+    
     def change_language(self):
         """
         Change the current language.
         """
         print(self.get_text("select_language"))
         choice = input().strip()
-         
+        
         if choice == "1":
             self.current_language = "en"
         elif choice == "2":
@@ -263,9 +281,9 @@ class Localization:
         else:
             print(self.get_text("error").format("Invalid choice"))
             return False
-         
+        
         # Save language preference
         self.storage.save(self.current_language)
-         
+        
         print(self.get_text("language_changed"))
         return True

@@ -192,7 +192,7 @@ class Assistant:
     def add_contact(self):
         """Add a new contact"""
         try:
-            name = RichFormatter.ask_input("Enter name: ")
+            name = RichFormatter.ask_input("Enter name")
             if not name:
                 RichFormatter.print_error("Name cannot be empty.")
                 return
@@ -207,12 +207,12 @@ class Assistant:
             
             # Add phone numbers
             while True:
-                phone = RichFormatter.ask_input("Enter phone number (leave empty to skip): ")
+                phone = RichFormatter.ask_input("Enter phone number (leave empty to skip) ")
                 if not phone:
                     break
                 try:
                     record.add_phone(phone)
-                    if not RichFormatter.ask_input("Add another phone? [y/n] (n): ").lower().startswith('y'):
+                    if not RichFormatter.ask_input("Add another phone? [y/n] (n) ").lower().startswith('y'):
                         break
                 except ValueError as e:
                     RichFormatter.print_error(f"Error: {e}")
@@ -220,7 +220,7 @@ class Assistant:
             
             # Add email
             while True:
-                email = RichFormatter.ask_input("Enter email (leave empty to skip): ")
+                email = RichFormatter.ask_input("Enter email (leave empty to skip) ")
                 if not email:
                     break
                 try:
@@ -232,7 +232,7 @@ class Assistant:
             
             # Add birthday
             while True:
-                birthday = RichFormatter.ask_input("Enter birthday (YYYY-MM-DD, leave empty to skip): ")
+                birthday = RichFormatter.ask_input("Enter birthday (YYYY-MM-DD, leave empty to skip) ")
                 if not birthday:
                     break
                 try:
@@ -243,7 +243,7 @@ class Assistant:
                     continue
             
             # Add address
-            address = RichFormatter.ask_input("Enter address (leave empty to skip): ")
+            address = RichFormatter.ask_input("Enter address (leave empty to skip) ")
             if address:
                 record.set_address(address)
             
@@ -268,7 +268,7 @@ class Assistant:
     
     def search_contacts(self):
         """Search contacts"""
-        query = RichFormatter.ask_input("Enter search query: ")
+        query = RichFormatter.ask_input("Enter search query ")
         if not query:
             RichFormatter.print_error("Search query cannot be empty.")
             return
@@ -279,12 +279,12 @@ class Assistant:
             return
         
         
-        RichFormatter.print_success(f"Found {len(results)} contacts:")
+        RichFormatter.print_success(f"Found {len(results)} contacts")
         RichFormatter.display_contacts_table(results)
     
     def edit_contact(self):
         """Edit a contact"""
-        name = RichFormatter.ask_input("Enter contact name to edit: ")
+        name = RichFormatter.ask_input("Enter contact name to edit ")
         if not name:
             RichFormatter.print_error("Contact name cannot be empty.")
             return
@@ -311,14 +311,14 @@ class Assistant:
         
         RichFormatter.console.print(edit_table)
         
-        choice = RichFormatter.ask_input("Choose what to edit (1-5): ")
+        choice = RichFormatter.ask_input("Choose what to edit (1-5) ")
         
         try:
             idx = int(choice) - 1
             if 0 <= idx < len(options):
                 field = options[idx]
                 if field == "name":
-                    new_name = RichFormatter.ask_input("Enter new name: ")
+                    new_name = RichFormatter.ask_input("Enter new name ")
                     if new_name and new_name != name:
                         # Check if the new name already exists
                         if self.contacts_book.find(new_name):
@@ -348,7 +348,7 @@ class Assistant:
     
     def delete_contact(self):
         """Delete a contact"""
-        name = RichFormatter.ask_input("Enter contact name to delete: ")
+        name = RichFormatter.ask_input("Enter contact name to delete ")
         if not name:
             RichFormatter.print_error("Contact name cannot be empty.")
             return
@@ -371,7 +371,7 @@ class Assistant:
     def show_upcoming_birthdays(self):
         """Show upcoming birthdays"""
         try:
-            days = int(RichFormatter.ask_input("Enter number of days to check: ", "7"))
+            days = int(RichFormatter.ask_input("Enter number of days to check ", "7"))
             if days < 0:
                 RichFormatter.print_error("Number of days should be positive.")
                 return
@@ -401,12 +401,12 @@ class Assistant:
     def add_note(self):
         """Add a new note"""
         try:
-            name = RichFormatter.ask_input("Enter note title: ")
+            name = RichFormatter.ask_input("Enter note title ")
             if not name:
                 RichFormatter.print_error("Title cannot be empty.")
                 return
             
-            content = RichFormatter.ask_input("Enter note content: ")
+            content = RichFormatter.ask_input("Enter note content ")
             
             # Create a new note record
             record = NoteRecord(name, content)
@@ -417,7 +417,7 @@ class Assistant:
                 if not add_tag:
                     break
                 
-                tag = RichFormatter.ask_input("Enter tag: ")
+                tag = RichFormatter.ask_input("Enter tag ")
                 if tag:
                     try:
                         record.add_tag(tag)
@@ -442,13 +442,13 @@ class Assistant:
         
         # Use rich formatter to display notes
         
-        RichFormatter.print_success("Displaying all notes:")
+        RichFormatter.print_success("Displaying all notes")
             
         RichFormatter.display_notes_table(self.note_book.data.values())
     
     def search_notes(self):
         """Search notes"""
-        query = RichFormatter.ask_input("Enter search query: ")
+        query = RichFormatter.ask_input("Enter search query ")
         if not query:
             RichFormatter.print_error("Search query cannot be empty.")
             return
@@ -458,12 +458,12 @@ class Assistant:
             RichFormatter.print_warning(f"No notes found for query '{query}'.")
             return
         
-        RichFormatter.print_success(f"Found {len(results)} notes:")
+        RichFormatter.print_success(f"Found {len(results)} notes")
         RichFormatter.display_notes_table(results)
     
     def edit_note(self):
         """Edit a note"""
-        title = RichFormatter.ask_input("Enter note title to edit: ")
+        title = RichFormatter.ask_input("Enter note title to edit ")
         if not title:
             RichFormatter.print_error("Note title cannot be empty.")
             return
@@ -488,14 +488,14 @@ class Assistant:
         
         RichFormatter.console.print(edit_table)
         
-        choice = RichFormatter.ask_input("Choose what to edit (1-3): ")
+        choice = RichFormatter.ask_input("Choose what to edit (1-3) ")
         
         try:
             idx = int(choice) - 1
             if 0 <= idx < len(options):
                 field = options[idx]
                 if field == "title":
-                    new_title = RichFormatter.ask_input("Enter new title: ")
+                    new_title = RichFormatter.ask_input("Enter new title ")
                     if new_title and new_title != title:
                         # Check if the new title already exists
                         if self.note_book.find(new_title):
@@ -511,7 +511,7 @@ class Assistant:
                 elif field == "content":
                     current_content = note.content
                     RichFormatter.print_info(f"Current content: {current_content}")
-                    new_content = RichFormatter.ask_input("Enter new content: ")
+                    new_content = RichFormatter.ask_input("Enter new content ")
                     note.edit_content(new_content)
                     self.note_book.save()
                     RichFormatter.print_success("Content updated successfully.")
@@ -526,7 +526,7 @@ class Assistant:
     
     def delete_note(self):
         """Delete a note"""
-        title = RichFormatter.ask_input("Enter note title to delete: ")
+        title = RichFormatter.ask_input("Enter note title to delete ")
         if not title:
             RichFormatter.print_error("Note title cannot be empty.")
             return
@@ -548,7 +548,7 @@ class Assistant:
     
     def add_tag_to_note(self):
         """Add a tag to an existing note"""
-        title = RichFormatter.ask_input("Enter note title: ")
+        title = RichFormatter.ask_input("Enter note title ")
         if not title:
             RichFormatter.print_error("Note title cannot be empty.")
             return
@@ -582,10 +582,10 @@ class Assistant:
             
             RichFormatter.console.print(tags_table)
             
-            choice = RichFormatter.ask_input("Choose an option (1-3): ")
+            choice = RichFormatter.ask_input("Choose an option (1-3) ")
             
             if choice == "1":
-                tag = RichFormatter.ask_input("Enter tag (without #): ")
+                tag = RichFormatter.ask_input("Enter tag (without #) ")
                 if not tag:
                     RichFormatter.print_error("Tag cannot be empty.")
                     continue
@@ -609,7 +609,7 @@ class Assistant:
                 for i, tag in enumerate(note.tags, 1):
                     RichFormatter.print_info(f"{i}. #{tag.value}")
                 
-                idx = RichFormatter.ask_input("Enter tag number to remove (or 0 to cancel): ")
+                idx = RichFormatter.ask_input("Enter tag number to remove (or 0 to cancel) ")
                 try:
                     idx = int(idx)
                     if idx == 0:
@@ -634,7 +634,7 @@ class Assistant:
     
     def search_notes_by_tag(self):
         """Search notes by tag"""
-        tag = RichFormatter.ask_input("Enter tag to search for (with or without #): ")
+        tag = RichFormatter.ask_input("Enter tag to search for (with or without #) ")
         if not tag:
             RichFormatter.print_error("Tag cannot be empty.")
             return
@@ -679,7 +679,7 @@ class Assistant:
         """Helper method to edit contact phones"""
         while True:
             if record.phones:
-                RichFormatter.print_info("Current phone numbers:")
+                RichFormatter.print_info("Current phone numbers")
                 for i, phone in enumerate(record.phones, 1):
                     RichFormatter.print_info(f"{i}. {phone.value}")
             
@@ -698,7 +698,7 @@ class Assistant:
             
             if choice == "1":
                 while True:
-                    phone = RichFormatter.ask_input("Enter new phone number: ")
+                    phone = RichFormatter.ask_input("Enter new phone number ")
                     if not phone:
                         RichFormatter.print_error("Phone number cannot be empty.")
                         continue
@@ -717,7 +717,7 @@ class Assistant:
                     continue
                 
                 while True:
-                    idx = RichFormatter.ask_input("Enter phone number to edit (or 0 to cancel): ")
+                    idx = RichFormatter.ask_input("Enter phone number to edit (or 0 to cancel) ")
                     try:
                         idx = int(idx)
                         if idx == 0:
@@ -725,7 +725,7 @@ class Assistant:
                         if 1 <= idx <= len(record.phones):
                             old_phone = record.phones[idx-1].value
                             while True:
-                                new_phone = RichFormatter.ask_input(f"Enter new phone number to replace {old_phone}: ")
+                                new_phone = RichFormatter.ask_input(f"Enter new phone number to replace {old_phone} ")
                                 if not new_phone:
                                     RichFormatter.print_error("Phone number cannot be empty.")
                                     continue
@@ -754,7 +754,7 @@ class Assistant:
                     continue
                 
                 while True:
-                    idx = RichFormatter.ask_input("Enter phone number to remove (or 0 to cancel): ")
+                    idx = RichFormatter.ask_input("Enter phone number to remove (or 0 to cancel) ")
                     try:
                         idx = int(idx)
                         if idx == 0:
@@ -785,7 +785,7 @@ class Assistant:
         """Helper method to edit contact email"""
         while True:
             if record.emails:
-                RichFormatter.print_info("Current emails:")
+                RichFormatter.print_info("Current emails")
                 for i, email in enumerate(record.emails, 1):
                     RichFormatter.print_info(f"{i}. {email.value}")
             
@@ -808,13 +808,13 @@ class Assistant:
                     continue
                 
                 while True:
-                    idx = RichFormatter.ask_input("Enter email number to edit: ")
+                    idx = RichFormatter.ask_input("Enter email number to edit ")
                     try:
                         idx = int(idx)
                         if 1 <= idx <= len(record.emails):
                             old_email = record.emails[idx-1].value
                             while True:
-                                new_email = RichFormatter.ask_input(f"Enter new email to replace {old_email}: ")
+                                new_email = RichFormatter.ask_input(f"Enter new email to replace {old_email} ")
                                 try:
                                     if record.edit_email(old_email, new_email):
                                         self.contacts_book.save()
@@ -840,7 +840,7 @@ class Assistant:
                     continue
                 
                 while True:
-                    idx = RichFormatter.ask_input("Enter email number to remove: ")
+                    idx = RichFormatter.ask_input("Enter email number to remove ")
                     try:
                         idx = int(idx)
                         if 1 <= idx <= len(record.emails):
@@ -861,7 +861,7 @@ class Assistant:
             
             elif choice == "3":
                 while True:
-                    email = RichFormatter.ask_input("Enter new email: ")
+                    email = RichFormatter.ask_input("Enter new email ")
                     try:
                         record.add_email(email)
                         self.contacts_book.save()
@@ -880,7 +880,7 @@ class Assistant:
         else:
             # No emails, just add a new one
             while True:
-                email = RichFormatter.ask_input("No emails set. Enter email: ")
+                email = RichFormatter.ask_input("No emails set. Enter email ")
                 try:
                     record.add_email(email)
                     self.contacts_book.save()
@@ -896,11 +896,11 @@ class Assistant:
             RichFormatter.print_info(f"Current birthday: {record.birthday.value}")
             
             # Ask to edit or remove
-            choice = RichFormatter.ask_input("Do you want to (1) edit or (2) remove the birthday? Enter choice (1/2): ")
+            choice = RichFormatter.ask_input("Do you want to (1) edit or (2) remove the birthday? Enter choice (1/2) ")
             
             if choice == "1":
                 while True:
-                    birthday = RichFormatter.ask_input("Enter new birthday (YYYY-MM-DD): ")
+                    birthday = RichFormatter.ask_input("Enter new birthday (YYYY-MM-DD) ")
                     try:
                         record.set_birthday(birthday)
                         self.contacts_book.save()
@@ -921,7 +921,7 @@ class Assistant:
         else:
             # No birthday set, just add a new one
             while True:
-                birthday = RichFormatter.ask_input("No birthday set. Enter birthday (YYYY-MM-DD): ")
+                birthday = RichFormatter.ask_input("No birthday set. Enter birthday (YYYY-MM-DD) ")
                 try:
                     record.set_birthday(birthday)
                     self.contacts_book.save()
@@ -934,13 +934,13 @@ class Assistant:
     def _edit_address(self, record):
         """Helper method to edit contact address"""
         if record.address:
-            RichFormatter.print_info(f"Current address: {record.address.value}")
+            RichFormatter.print_info(f"Current address {record.address.value}")
             
             # Ask to edit or remove
-            choice = RichFormatter.ask_input("Do you want to (1) edit or (2) remove the address? Enter choice (1/2): ")
+            choice = RichFormatter.ask_input("Do you want to (1) edit or (2) remove the address? Enter choice (1/2) ")
             
             if choice == "1":
-                address = RichFormatter.ask_input("Enter new address: ")
+                address = RichFormatter.ask_input("Enter new address ")
                 record.set_address(address)
                 self.contacts_book.save()
                 RichFormatter.print_success(f"Address updated to {address}.")
@@ -955,7 +955,7 @@ class Assistant:
         
         else:
             # No address set, just add a new one
-            address = RichFormatter.ask_input("No address set. Enter address: ")
+            address = RichFormatter.ask_input("No address set. Enter address ")
             record.set_address(address)
             self.contacts_book.save()
             RichFormatter.print_success(f"Address set to {address}.")
@@ -975,7 +975,7 @@ class Assistant:
         
         RichFormatter.console.print(lang_table)
         
-        choice = RichFormatter.ask_input(f"Choose language (1-{len(available_languages)}): ")
+        choice = RichFormatter.ask_input(f"Choose language (1-{len(available_languages)}) ")
         try:
             idx = int(choice) - 1
             if 0 <= idx < len(available_languages):
